@@ -1,0 +1,16 @@
+PODS:
+  - Differific (0.1.0)
+
+DEPENDENCIES:
+  - Differific (from `../../`)
+
+EXTERNAL SOURCES:
+  Differific:
+    :path: "../../"
+
+SPEC CHECKSUMS:
+  Differific: 0f03a0211fd879904ac71dce814bbd6943ae9284
+
+PODFILE CHECKSUM: 3143b825fac48b43a36a1be8861709a90f98bb2b
+
+COCOAPODS: 1.5.0
