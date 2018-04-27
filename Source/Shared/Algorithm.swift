@@ -21,8 +21,10 @@ class Algorithm {
     var newCounter: Counter = .zero
     var indexesInOld: [Int] = []
 
-    static func ==(lhs: TableEntry, rhs: TableEntry) -> Bool {
-      return lhs.oldCounter == rhs.oldCounter && lhs.newCounter == rhs.newCounter && lhs.indexesInOld == rhs.indexesInOld
+    static func == (lhs: TableEntry, rhs: TableEntry) -> Bool {
+      return lhs.oldCounter == rhs.oldCounter &&
+        lhs.newCounter == rhs.newCounter &&
+        lhs.indexesInOld == rhs.indexesInOld
     }
   }
 
@@ -64,7 +66,7 @@ class Algorithm {
       table[element.hashValue] = entry
     }
 
-    newArray.enumerated().forEach { (indexOfNew, item) in
+    newArray.enumerated().forEach { indexOfNew, item in
       switch item {
       case .tableEntry(let entry):
         guard !entry.indexesInOld.isEmpty else {
@@ -77,7 +79,7 @@ class Algorithm {
           newArray[indexOfNew] = .indexInOther(indexOfOld)
           oldArray[indexOfOld] = .indexInOther(indexOfNew)
         }
-      case .indexInOther(_):
+      case .indexInOther:
         break
       }
     }
@@ -111,30 +113,24 @@ class Algorithm {
       case .tableEntry:
         runningOffset += 1
 
-        changes.append(
-          Change(.insert,
-                 item: new[offset],
-                 index: offset)
-        )
+        changes.append(Change(.insert,
+                              item: new[offset],
+                              index: offset))
       case .indexInOther(let oldIndex):
         if old[oldIndex] != new[offset] {
-          changes.append(
-            Change(.replace,
-                   item: old[oldIndex],
-                   index: oldIndex,
-                   newIndex: offset,
-                   newItem: new[offset])
-          )
+          changes.append(Change(.replace,
+                                item: old[oldIndex],
+                                index: oldIndex,
+                                newIndex: offset,
+                                newItem: new[offset]))
         }
 
         let deleteOffset = deleteOffsets[oldIndex]
         if (oldIndex - deleteOffset + runningOffset) != offset {
-          changes.append(
-            Change(.move,
-                   item: new[offset],
-                   index: oldIndex,
-                   newIndex: offset)
-          )
+          changes.append(Change(.move,
+                                item: new[offset],
+                                index: oldIndex,
+                                newIndex: offset))
         }
       }
     }

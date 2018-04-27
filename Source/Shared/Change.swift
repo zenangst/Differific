@@ -11,7 +11,11 @@ public struct Change<T> {
   public var newIndex: Int?
   public var newItem: T?
 
-  init(_ kind: Change.Kind, item: T, index: Int, newIndex: Int? = nil, newItem: T? = nil) {
+  init(_ kind: Change.Kind,
+       item: T,
+       index: Int,
+       newIndex: Int? = nil,
+       newItem: T? = nil) {
     self.kind = kind
     self.item = item
     self.index = index

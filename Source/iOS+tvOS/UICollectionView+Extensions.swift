@@ -16,22 +16,11 @@ extension UICollectionView {
     before?(self)
 
     performBatchUpdates({
-      if !result.insert.isEmpty {
-        insertItems(at: result.insert)
-      }
-
-      if !result.updates.isEmpty {
-        reloadItems(at: result.updates)
-      }
-
-      if !result.deletions.isEmpty {
-        deleteItems(at: result.deletions)
-      }
-
-      if !result.moves.isEmpty {
-        result.moves.forEach {
-          moveItem(at: $0.from, to: $0.to)
-        }
+      insertItems(at: result.insert)
+      reloadItems(at: result.updates)
+      deleteItems(at: result.deletions)
+      result.moves.forEach {
+        moveItem(at: $0.from, to: $0.to)
       }
     }, completion: nil)
 
