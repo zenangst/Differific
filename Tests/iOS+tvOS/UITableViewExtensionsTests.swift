@@ -25,6 +25,8 @@ class UITableViewExtensionsTests: XCTestCase {
     tableView.dataSource = dataSource
     tableView.register(UITableViewCell.self,
                        forCellReuseIdentifier: "cell")
+    tableView.setNeedsLayout()
+    tableView.layoutIfNeeded()
 
     let old = dataSource.models
     let new = ["Foo", "Bar", "Baz"]
@@ -51,6 +53,8 @@ class UITableViewExtensionsTests: XCTestCase {
     tableView.dataSource = dataSource
     tableView.register(UITableViewCell.self,
                        forCellReuseIdentifier: "cell")
+    tableView.setNeedsLayout()
+    tableView.layoutIfNeeded()
 
     let old = dataSource.models
     let new = ["Baz", "Bar", "Foo"]
@@ -77,6 +81,8 @@ class UITableViewExtensionsTests: XCTestCase {
     tableView.dataSource = dataSource
     tableView.register(UITableViewCell.self,
                        forCellReuseIdentifier: "cell")
+    tableView.setNeedsLayout()
+    tableView.layoutIfNeeded()
 
     let old = dataSource.models
     let new = [String]()

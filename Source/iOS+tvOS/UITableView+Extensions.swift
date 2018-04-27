@@ -15,25 +15,22 @@ public extension UITableView {
     let result = manager.process(changes, section: section)
 
     before?(self)
-    beginUpdates()
 
-    if !result.insert.isEmpty {
+    if #available(iOS 11, tvOS 11, *) {
+      performBatchUpdates({
+        insertRows(at: result.insert, with: animation)
+        reloadRows(at: result.updates, with: animation)
+        deleteRows(at: result.deletions, with: animation)
+        result.moves.forEach { moveRow(at: $0.from, to: $0.to) }
+      })
+    } else {
+      beginUpdates()
       insertRows(at: result.insert, with: animation)
-    }
-
-    if !result.updates.isEmpty {
       reloadRows(at: result.updates, with: animation)
-    }
-
-    if !result.deletions.isEmpty {
       deleteRows(at: result.deletions, with: animation)
-    }
-
-    if !result.moves.isEmpty {
       result.moves.forEach { moveRow(at: $0.from, to: $0.to) }
+      endUpdates()
     }
-
-    endUpdates()
 
     completion?()
   }
