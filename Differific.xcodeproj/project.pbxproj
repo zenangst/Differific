@@ -70,6 +70,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BD2875752092EA56002AB5C3 /* Differific.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Differific.podspec; sourceTree = "<group>"; };
 		BDBF80B720923FB90002CE93 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		BDBF80B820923FB90002CE93 /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
 		BDBF80BD20923FC10002CE93 /* NSCollectionView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSCollectionView+Extensions.swift"; sourceTree = "<group>"; };
@@ -78,7 +79,6 @@
 		BDBF80C420923FD00002CE93 /* Change.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Change.swift; sourceTree = "<group>"; };
 		BDBF80C520923FD00002CE93 /* IndexPathManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexPathManager.swift; sourceTree = "<group>"; };
 		BDBF80C620923FD00002CE93 /* Algorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Algorithm.swift; sourceTree = "<group>"; };
-		BDBF80D320923FE70002CE93 /* Differiffic.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = Differiffic.podspec; path = ../Backup/Differiffic/Differiffic.podspec; sourceTree = "<group>"; };
 		BDBF80D9209240110002CE93 /* DiffManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiffManagerTests.swift; sourceTree = "<group>"; };
 		BDBF80DD20924D880002CE93 /* IndexPathManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexPathManagerTests.swift; sourceTree = "<group>"; };
 		BDBF80E1209250140002CE93 /* UITableViewExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewExtensionsTests.swift; sourceTree = "<group>"; };
@@ -216,7 +216,7 @@
 		D5B2E8951C3A780C00C0327D = {
 			isa = PBXGroup;
 			children = (
-				BDBF80D320923FE70002CE93 /* Differiffic.podspec */,
+				BD2875752092EA56002AB5C3 /* Differific.podspec */,
 				D500FD111C3AABED00782D78 /* Playground-iOS.playground */,
 				D500FD121C3AAC8E00782D78 /* Playground-macOS.playground */,
 				D284B13F1F79081F00D94AF3 /* Info */,
