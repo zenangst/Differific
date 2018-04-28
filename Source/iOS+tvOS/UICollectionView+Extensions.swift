@@ -1,6 +1,13 @@
 import UIKit
 
 extension UICollectionView {
+  /// Reload collection view's data source with a collection of changes.
+  ///
+  /// - Parameters:
+  ///   - changes: A generic collection of changes.
+  ///   - section: The section that will be updated.
+  ///   - before: A closure that will be invoked before the updates.
+  ///   - completion: A closure that is invoked after the updates are done.
   public func reload<T: Hashable>(with changes: [Change<T>],
                                   section: Int = 0,
                                   before: ((UICollectionView) -> Void)? = nil,
@@ -22,7 +29,7 @@ extension UICollectionView {
       result.moves.forEach {
         moveItem(at: $0.from, to: $0.to)
       }
-    }, completion: nil)
+    })
 
     completion?()
   }
