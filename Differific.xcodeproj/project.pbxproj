@@ -72,6 +72,7 @@
 /* Begin PBXFileReference section */
 		BD2875752092EA56002AB5C3 /* Differific.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Differific.podspec; sourceTree = "<group>"; };
 		BD7221D42094863A00D28B9C /* .travis.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .travis.yml; sourceTree = SOURCE_ROOT; };
+		BD7221D52094885300D28B9C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		BDBF80B720923FB90002CE93 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		BDBF80B820923FB90002CE93 /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
 		BDBF80BD20923FC10002CE93 /* NSCollectionView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSCollectionView+Extensions.swift"; sourceTree = "<group>"; };
@@ -217,6 +218,7 @@
 		D5B2E8951C3A780C00C0327D = {
 			isa = PBXGroup;
 			children = (
+				BD7221D52094885300D28B9C /* README.md */,
 				BD7221D42094863A00D28B9C /* .travis.yml */,
 				BD2875752092EA56002AB5C3 /* Differific.podspec */,
 				D500FD111C3AABED00782D78 /* Playground-iOS.playground */,

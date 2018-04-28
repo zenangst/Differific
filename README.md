@@ -9,13 +9,39 @@
 
 ## Description
 
-**Differific** description.
+**Differific** is a diffing tool that helps you compare Hashable objects using the Paul Heckel's diffing algorithm. Creating a changeset is seamless for all your diffing needs. The library also includes some convenience extensions to make life easier when updating data sources.
+
+The library is based and highly influenced by Khoa Pham's ([@onmyway133](https://github.com/onmyway133)) [DeepDiff](https://github.com/onmyway133/DeepDiff) library that aims to solve the same issue. For more information about how the algorithm works and the performance of the algorithm, head over to [DeepDiff](https://github.com/onmyway133/DeepDiff/blob/master/README.md#among-different-frameworks). For the time being, both frameworks are very similar; this is subject to change when the frameworks evolve.
+
+## Features
+
+- [x] 🍩Built-in extensions for updating table & collection views.
+- [x] 🏎High performance.
+- [x] 📱iOS support.
+- [x] 💻macOS support.
+- [x] 📺tvOS support.
 
 ## Usage
 
+### Diffing two collections
+
 ```swift
-<API>
+let old = ["Foo", "Bar"]
+let new = ["Foo", "Bar", "Baz"]
+let manager = DiffManager()
+let changes = manager.diff(old, new)
 ```
+
+### Updating a table or collection view
+
+```swift
+// uiElement is either your table view or collection view.
+let old = dataSource.models
+let new = newCollection
+let changes = DiffManager().diff(old, new)
+uiElement.reload(with: changes, before: { dataSource.models = new })
+```
+
 
 ## Installation
 
@@ -37,7 +63,8 @@ github "zenangst/Differific"
 
 ## Author
 
-Christoffer Winterkvist, christoffer@winterkvist.com
+- Christoffer Winterkvist, christoffer@winterkvist.com
+- Khoa Pham, onmyway133@gmail.com
 
 ## Contributing
 
