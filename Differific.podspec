@@ -16,8 +16,8 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = '9.2'
 
   s.requires_arc = true
-  s.ios.source_files = 'Sources/{iOS+tvOS,iOS,Shared}/**/*'
-  s.tvos.source_files = 'Sources/{iOS+tvOS,tvOS,Shared}/**/*'
+  s.ios.source_files = 'Sources/{iOS+tvOS,Shared}/**/*'
+  s.tvos.source_files = 'Sources/{iOS+tvOS,Shared}/**/*'
   s.osx.source_files = 'Sources/{macOS,Shared}/**/*'
 
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
