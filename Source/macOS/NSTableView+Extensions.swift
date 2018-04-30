@@ -8,11 +8,12 @@ public extension NSTableView {
   ///   - animation: The animation that should be used when performing the update.
   ///   - section: The section that will be updated.
   ///   - before: A closure that will be invoked before the updates.
+  ///             This is where you should update your data source.
   ///   - completion: A closure that is invoked after the updates are done.
   public func reload<T: Hashable>(with changes: [Change<T>],
                                   animation: NSTableView.AnimationOptions,
                                   section: Int = 0,
-                                  before: ((NSTableView) -> Void)? = nil,
+                                  before: (() -> Void)? = nil,
                                   completion: (() -> Void)? = nil) {
     guard !changes.isEmpty else {
       completion?()
@@ -25,7 +26,7 @@ public extension NSTableView {
     let deletions = IndexSet(result.deletions.compactMap { $0.item })
     let updates = IndexSet(result.updates.compactMap { $0.item })
 
-    before?(self)
+    before?()
 
     beginUpdates()
     removeRows(at: deletions, withAnimation: animation)

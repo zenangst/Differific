@@ -25,8 +25,6 @@ class UITableViewExtensionsTests: XCTestCase {
     tableView.dataSource = dataSource
     tableView.register(UITableViewCell.self,
                        forCellReuseIdentifier: "cell")
-    tableView.setNeedsLayout()
-    tableView.layoutIfNeeded()
 
     let old = dataSource.models
     let new = ["Foo", "Bar", "Baz"]
@@ -36,7 +34,7 @@ class UITableViewExtensionsTests: XCTestCase {
     var ranBefore: Bool = false
     var ranCompletion: Bool = false
 
-    tableView.reload(with: changes, before: { _ in
+    tableView.reload(with: changes, before: {
       dataSource.models = new
       ranBefore = true
     }) {
@@ -53,8 +51,6 @@ class UITableViewExtensionsTests: XCTestCase {
     tableView.dataSource = dataSource
     tableView.register(UITableViewCell.self,
                        forCellReuseIdentifier: "cell")
-    tableView.setNeedsLayout()
-    tableView.layoutIfNeeded()
 
     let old = dataSource.models
     let new = ["Baz", "Bar", "Foo"]
@@ -64,7 +60,7 @@ class UITableViewExtensionsTests: XCTestCase {
     var ranBefore: Bool = false
     var ranCompletion: Bool = false
 
-    tableView.reload(with: changes, before: { _ in
+    tableView.reload(with: changes, before: {
       dataSource.models = new
       ranBefore = true
     }) {
@@ -81,8 +77,6 @@ class UITableViewExtensionsTests: XCTestCase {
     tableView.dataSource = dataSource
     tableView.register(UITableViewCell.self,
                        forCellReuseIdentifier: "cell")
-    tableView.setNeedsLayout()
-    tableView.layoutIfNeeded()
 
     let old = dataSource.models
     let new = [String]()
@@ -92,7 +86,7 @@ class UITableViewExtensionsTests: XCTestCase {
     var ranBefore: Bool = false
     var ranCompletion: Bool = false
 
-    tableView.reload(with: changes, before: { _ in
+    tableView.reload(with: changes, before: {
       dataSource.models = new
       ranBefore = true
     }) {
@@ -118,7 +112,7 @@ class UITableViewExtensionsTests: XCTestCase {
     var ranBefore: Bool = false
     var ranCompletion: Bool = false
 
-    tableView.reload(with: changes, before: { _ in
+    tableView.reload(with: changes, before: {
       dataSource.models = new
       ranBefore = true
     }) {

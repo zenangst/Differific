@@ -27,8 +27,6 @@ class UICollectionViewExtensionsTests: XCTestCase {
                                           collectionViewLayout: layout)
     collectionView.dataSource = dataSource
     collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-    collectionView.setNeedsLayout()
-    collectionView.layoutIfNeeded()
 
     let old = dataSource.models
     let new = ["Foo", "Bar", "Baz"]
@@ -37,8 +35,8 @@ class UICollectionViewExtensionsTests: XCTestCase {
     var ranBefore: Bool = false
     var ranCompletion: Bool = false
 
-    dataSource.models = new
-    collectionView.reload(with: changes, before: { _ in
+    collectionView.reload(with: changes, before: {
+      dataSource.models = new
       ranBefore = true
     }) {
       ranCompletion = true
@@ -56,8 +54,6 @@ class UICollectionViewExtensionsTests: XCTestCase {
                                           collectionViewLayout: layout)
     collectionView.dataSource = dataSource
     collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-    collectionView.setNeedsLayout()
-    collectionView.layoutIfNeeded()
 
     let old = dataSource.models
     let new = ["Baz", "Bar", "Foo"]
@@ -67,8 +63,8 @@ class UICollectionViewExtensionsTests: XCTestCase {
     var ranBefore: Bool = false
     var ranCompletion: Bool = false
 
-    dataSource.models = new
-    collectionView.reload(with: changes, before: { _ in
+    collectionView.reload(with: changes, before: {
+      dataSource.models = new
       ranBefore = true
     }) {
       ranCompletion = true
@@ -86,8 +82,6 @@ class UICollectionViewExtensionsTests: XCTestCase {
                                           collectionViewLayout: layout)
     collectionView.dataSource = dataSource
     collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-    collectionView.setNeedsLayout()
-    collectionView.layoutIfNeeded()
 
     let old = dataSource.models
     let new = [String]()
@@ -97,8 +91,8 @@ class UICollectionViewExtensionsTests: XCTestCase {
     var ranBefore: Bool = false
     var ranCompletion: Bool = false
 
-    dataSource.models = new
-    collectionView.reload(with: changes, before: { _ in
+    collectionView.reload(with: changes, before: {
+      dataSource.models = new
       ranBefore = true
     }) {
       ranCompletion = true
@@ -116,8 +110,6 @@ class UICollectionViewExtensionsTests: XCTestCase {
                                           collectionViewLayout: layout)
     collectionView.dataSource = dataSource
     collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-    collectionView.setNeedsLayout()
-    collectionView.layoutIfNeeded()
 
     let old = dataSource.models
     let new = ["Foo", "Bar", "Baz"]
@@ -127,8 +119,8 @@ class UICollectionViewExtensionsTests: XCTestCase {
     var ranBefore: Bool = false
     var ranCompletion: Bool = false
 
-    dataSource.models = new
-    collectionView.reload(with: changes, before: { _ in
+    collectionView.reload(with: changes, before: {
+      dataSource.models = new
       ranBefore = true
     }) {
       ranCompletion = true
