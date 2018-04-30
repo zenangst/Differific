@@ -12,17 +12,20 @@ public extension UITableView {
   public func reload<T: Hashable>(with changes: [Change<T>],
                                   animation: UITableViewRowAnimation = .automatic,
                                   section: Int = 0,
-                                  before: ((UITableView) -> Void)? = nil,
+                                  before: (() -> Void)? = nil,
                                   completion: (() -> Void)? = nil) {
     guard !changes.isEmpty else {
       completion?()
       return
     }
 
+    setNeedsLayout()
+    layoutIfNeeded()
+
     let manager = IndexPathManager()
     let result = manager.process(changes, section: section)
 
-    before?(self)
+    before?()
 
     if #available(iOS 11, tvOS 11, *) {
       performBatchUpdates({

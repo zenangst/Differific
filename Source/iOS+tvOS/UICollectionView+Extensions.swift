@@ -10,17 +10,20 @@ extension UICollectionView {
   ///   - completion: A closure that is invoked after the updates are done.
   public func reload<T: Hashable>(with changes: [Change<T>],
                                   section: Int = 0,
-                                  before: ((UICollectionView) -> Void)? = nil,
+                                  before: (() -> Void)? = nil,
                                   completion: (() -> Void)? = nil) {
     guard !changes.isEmpty else {
       completion?()
       return
     }
 
+    setNeedsLayout()
+    layoutIfNeeded()
+
     let manager = IndexPathManager()
     let result = manager.process(changes, section: section)
 
-    before?(self)
+    before?()
 
     performBatchUpdates({
       insertItems(at: result.insert)

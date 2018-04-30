@@ -12,7 +12,7 @@ public extension NSTableView {
   public func reload<T: Hashable>(with changes: [Change<T>],
                                   animation: NSTableView.AnimationOptions,
                                   section: Int = 0,
-                                  before: ((NSTableView) -> Void)? = nil,
+                                  before: (() -> Void)? = nil,
                                   completion: (() -> Void)? = nil) {
     guard !changes.isEmpty else {
       completion?()
@@ -25,7 +25,7 @@ public extension NSTableView {
     let deletions = IndexSet(result.deletions.compactMap { $0.item })
     let updates = IndexSet(result.updates.compactMap { $0.item })
 
-    before?(self)
+    before?()
 
     beginUpdates()
     removeRows(at: deletions, withAnimation: animation)

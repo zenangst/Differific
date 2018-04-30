@@ -37,7 +37,7 @@ class NSCollectionViewExtensionsTests: XCTestCase {
     var ranCompletion: Bool = false
 
     dataSource.models = new
-    collectionView.reload(with: changes, before: { _ in
+    collectionView.reload(with: changes, before: {
       ranBefore = true
     }) {
       ranCompletion = true
@@ -65,7 +65,7 @@ class NSCollectionViewExtensionsTests: XCTestCase {
     var ranCompletion: Bool = false
 
     dataSource.models = new
-    collectionView.reload(with: changes, before: { _ in
+    collectionView.reload(with: changes, before: {
       ranBefore = true
     }) {
       ranCompletion = true
@@ -93,7 +93,7 @@ class NSCollectionViewExtensionsTests: XCTestCase {
     var ranCompletion: Bool = false
 
     dataSource.models = new
-    collectionView.reload(with: changes, before: { _ in
+    collectionView.reload(with: changes, before: {
       ranBefore = true
     }) {
       ranCompletion = true
@@ -121,7 +121,7 @@ class NSCollectionViewExtensionsTests: XCTestCase {
     var ranCompletion: Bool = false
 
     dataSource.models = new
-    collectionView.reload(with: changes, before: { _ in
+    collectionView.reload(with: changes, before: {
       ranBefore = true
     }) {
       ranCompletion = true
