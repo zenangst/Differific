@@ -1,6 +1,6 @@
 # Differific
 
-[![CI Status](https://img.shields.io/circleci/project/github/zenangst/Differific.svg)](https://circleci.com/gh/zenangst/Differific)
+[![CI Status](https://travis-ci.org/zenangst/Differific.svg?branch=master)](https://travis-ci.org/zenangst/Differific)
 [![Version](https://img.shields.io/cocoapods/v/Differific.svg?style=flat)](http://cocoadocs.org/docsets/Differific)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![License](https://img.shields.io/cocoapods/l/Differific.svg?style=flat)](http://cocoadocs.org/docsets/Differific)
