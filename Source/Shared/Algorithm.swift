@@ -1,75 +1,73 @@
 import Foundation
 
 class Algorithm {
-  public init() {}
-
-  public func diff<T: Hashable>(old: [T], new: [T]) -> [Change<T>] {
+  public static func diff<T: Hashable>(old: [T], new: [T]) -> [Change<T>] {
     var table: [Int: TableEntry] = [:]
-    var oldArray = [ArrayEntry]()
-    var newArray = [ArrayEntry]()
+    var (oldArray, newArray) = ([ArrayEntry](), [ArrayEntry]())
+    var changes = [Change<T>]()
+    var deleteOffsets = Array(repeating: 0, count: old.count)
+    var runningDeleteOffset = 0
+    var runningOffset = 0
+    var offset = 0
 
-    for item in new {
-      let entry = table[item.hashValue] ?? TableEntry()
-      entry.newCounter = entry.newCounter.increment()
-      newArray.append(.tableEntry(entry))
-      table[item.hashValue] = entry
-    }
-
-    for (offset, element) in old.enumerated() {
+    for element in old[0...] {
+      defer { offset += 1 }
       let entry = table[element.hashValue] ?? TableEntry()
       entry.oldCounter = entry.oldCounter.increment()
       entry.indexesInOld.append(offset)
-      oldArray.append(.tableEntry(entry))
+      let oldArrayEntry: ArrayEntry = .tableEntry(entry)
+      oldArray.append(oldArrayEntry)
       table[element.hashValue] = entry
     }
 
-    newArray.enumerated().forEach { indexOfNew, item in
-      switch item {
+    offset = 0
+    for element in new[0...] {
+      defer { offset += 1 }
+      let entry = table[element.hashValue] ?? TableEntry()
+      let arrayEntry: ArrayEntry = .tableEntry(entry)
+      entry.newCounter = entry.newCounter.increment()
+      newArray.append(arrayEntry)
+      table[element.hashValue] = entry
+
+      switch arrayEntry {
       case .tableEntry(let entry):
-        guard !entry.indexesInOld.isEmpty else { return }
+        guard !entry.indexesInOld.isEmpty else { continue }
         let indexOfOld = entry.indexesInOld.removeFirst()
         let isObservation1 = entry.newCounter == .one &&
           entry.oldCounter == .one
         let isObservation2 = entry.newCounter != .zero &&
-          entry.oldCounter != .zero && newArray[indexOfNew] == oldArray[indexOfOld]
+          entry.oldCounter != .zero && newArray[offset] == oldArray[indexOfOld]
         if isObservation1 || isObservation2 {
-          newArray[indexOfNew] = .indexInOther(indexOfOld)
-          oldArray[indexOfOld] = .indexInOther(indexOfNew)
+          newArray[offset] = .indexInOther(indexOfOld)
+          oldArray[indexOfOld] = .indexInOther(offset)
         }
       case .indexInOther:
-        break
+        continue
       }
     }
 
-    var changes = [Change<T>]()
-    var deleteOffsets = Array(repeating: 0, count: old.count)
-    var runningOffset = 0
-
     // Handle deletions
+    offset = 0
+    for element in oldArray[0...] {
+      defer { offset += 1 }
 
-    var runningDeleteOffset = 0
-
-    oldArray.enumerated().forEach { oldTuple in
-      deleteOffsets[oldTuple.offset] = runningDeleteOffset
-
-      guard case .tableEntry = oldTuple.element else {
-        return
-      }
+      deleteOffsets[offset] = runningDeleteOffset
+      guard case .tableEntry = element else { continue }
 
       changes.append(Change(.delete,
-                            item: old[oldTuple.offset],
-                            index: oldTuple.offset))
-
+                            item: old[offset],
+                            index: offset))
       runningDeleteOffset += 1
     }
 
     // Handle insert, updates and move.
 
-    for (offset, element) in newArray.enumerated() {
+    offset = 0
+    for element in newArray[0...] {
+      defer { offset += 1 }
       switch element {
       case .tableEntry:
         runningOffset += 1
-
         changes.append(Change(.insert,
                               item: new[offset],
                               index: offset))
