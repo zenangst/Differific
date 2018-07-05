@@ -13,7 +13,8 @@
 
 **Differific** is a diffing tool that helps you compare Hashable objects using the Paul Heckel's diffing algorithm. Creating a changeset is seamless for all your diffing needs. The library also includes some convenience extensions to make life easier when updating data sources.
 
-The library is based and highly influenced by Khoa Pham's ([@onmyway133](https://github.com/onmyway133)) [DeepDiff](https://github.com/onmyway133/DeepDiff) library that aims to solve the same issue. For more information about how the algorithm works and the performance of the algorithm, head over to [DeepDiff](https://github.com/onmyway133/DeepDiff/blob/master/README.md#among-different-frameworks). For the time being, both frameworks are very similar; this is subject to change when the frameworks evolve.
+The library is based and highly influenced by Matias Cudich's ([@mcudich](https://github.com/mcudich)) [HeckelDiff](https://github.com/mcudich/HeckelDiff) library that aims to solve the same issue. Versions prior to 0.3.0 was based on [DeepDiff](https://github.com/onmyway133/DeepDiff).
+For more information about how the algorithm works and the performance of the algorithm, head over to [DeepDiff](https://github.com/onmyway133/DeepDiff/blob/master/README.md#among-different-frameworks). For the time being, both frameworks are very similar; this is subject to change when the frameworks evolve.
 
 ## Features
 
