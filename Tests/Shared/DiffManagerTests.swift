@@ -2,6 +2,12 @@ import XCTest
 import Differific
 
 class DiffManagerTests: XCTestCase {
+  struct MockObject: Hashable {
+    let id: Int
+    let name: String
+    var hashValue: Int { return id.hashValue }
+  }
+
   let manager = DiffManager()
 
   func testEmptyDiff() {
@@ -79,42 +85,65 @@ class DiffManagerTests: XCTestCase {
   }
 
   func testReplacing() {
-    let old = ["Foo", "Bar", "Baz"]
-    let new = old.compactMap { $0.uppercased() }
+    let old = [
+      MockObject(id: 0, name: "Foo"),
+      MockObject(id: 1, name: "Bar"),
+      MockObject(id: 2, name: "Baz")
+    ]
+    let new = [
+      MockObject(id: 0, name: "Foo0"),
+      MockObject(id: 1, name: "Bar1"),
+      MockObject(id: 2, name: "Baz2")
+    ]
     let result = manager.diff(old, new)
 
-    XCTAssertEqual(result.count, 6)
+    XCTAssertEqual(result.count, 3)
 
-    XCTAssertEqual(result[0].kind, .delete)
-    XCTAssertEqual(result[0].item, "Foo")
+    XCTAssertEqual(result[0].kind, .update)
+    XCTAssertEqual(result[0].item, MockObject(id: 0, name: "Foo"))
+    XCTAssertEqual(result[0].newItem, MockObject(id: 0, name: "Foo0"))
     XCTAssertEqual(result[0].index, 0)
 
-    XCTAssertEqual(result[1].kind, .delete)
-    XCTAssertEqual(result[1].item, "Bar")
+    XCTAssertEqual(result[1].kind, .update)
+    XCTAssertEqual(result[1].item, MockObject(id: 1, name: "Bar"))
+    XCTAssertEqual(result[1].newItem, MockObject(id: 1, name: "Bar1"))
     XCTAssertEqual(result[1].index, 1)
 
-    XCTAssertEqual(result[2].kind, .delete)
-    XCTAssertEqual(result[2].item, "Baz")
+    XCTAssertEqual(result[2].kind, .update)
+    XCTAssertEqual(result[2].item, MockObject(id: 2, name: "Baz"))
+    XCTAssertEqual(result[2].newItem, MockObject(id: 2, name: "Baz2"))
     XCTAssertEqual(result[2].index, 2)
-
-    XCTAssertEqual(result[3].kind, .insert)
-    XCTAssertEqual(result[3].item, "FOO")
-    XCTAssertEqual(result[3].index, 0)
-
-    XCTAssertEqual(result[4].kind, .insert)
-    XCTAssertEqual(result[4].item, "BAR")
-    XCTAssertEqual(result[4].index, 1)
-
-    XCTAssertEqual(result[5].kind, .insert)
-    XCTAssertEqual(result[5].item, "BAZ")
-    XCTAssertEqual(result[5].index, 2)
 
   }
 
   func testDiffing() {
-    let old = ["Eirik", "Markus", "Andreas"]
-    let new = ["Eirik P", "Eirik N", "Markus", "Chris"]
+    let old = [
+      MockObject(id: 0, name: "Eirik"),
+      MockObject(id: 1, name: "Markus"),
+      MockObject(id: 2, name: "Andreas")
+    ]
+    let new = [
+      MockObject(id: 3, name: "Eirik P"),
+      MockObject(id: 0, name: "Eirik N"),
+      MockObject(id: 1, name: "Markus"),
+      MockObject(id: 4, name: "Chris")
+    ]
     let result = manager.diff(old, new)
+
+    XCTAssertEqual(result[0].kind, .delete)
+    XCTAssertEqual(result[0].item, MockObject(id: 2, name: "Andreas"))
+
+    XCTAssertEqual(result[1].kind, .insert)
+    XCTAssertEqual(result[1].item, MockObject(id: 3, name: "Eirik P"))
+
+    XCTAssertEqual(result[2].kind, .update)
+    XCTAssertEqual(result[2].item, MockObject(id: 0, name: "Eirik"))
+
+    XCTAssertEqual(result[3].kind, .move)
+    XCTAssertEqual(result[3].item, MockObject(id: 1, name: "Markus"))
+
+    XCTAssertEqual(result[4].kind, .insert)
+    XCTAssertEqual(result[4].item, MockObject(id: 4, name: "Chris"))
 
     XCTAssertEqual(result.count, 5)
   }

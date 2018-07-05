@@ -24,7 +24,9 @@ class IndexPathManagerTests: XCTestCase {
       IndexPath(item: 2, section: 0)
       ])
 
-    XCTAssertTrue(result.moves.isEmpty)
+    XCTAssertEqual(result.moves.count, 1)
+    XCTAssertEqual(result.moves[0].from, IndexPath(item: 1, section: 0))
+    XCTAssertEqual(result.moves[0].to, IndexPath(item: 2, section: 0))
   }
 
   func testIndexPathGeneratingMoves() {

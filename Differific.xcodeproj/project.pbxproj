@@ -79,7 +79,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		BD2875752092EA56002AB5C3 /* Differific.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Differific.podspec; sourceTree = "<group>"; };
+		BD2875752092EA56002AB5C3 /* Differific.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Differific.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		BD690D4720DC13F700E56E30 /* Counter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Counter.swift; sourceTree = "<group>"; };
 		BD690D4B20DC141200E56E30 /* TableEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableEntry.swift; sourceTree = "<group>"; };
 		BD690D4F20DC143100E56E30 /* ArrayEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayEntry.swift; sourceTree = "<group>"; };

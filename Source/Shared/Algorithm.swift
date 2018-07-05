@@ -2,90 +2,129 @@ import Foundation
 
 class Algorithm {
   public static func diff<T: Hashable>(old: [T], new: [T]) -> [Change<T>] {
-    var table: [Int: TableEntry] = [:]
-    var (oldArray, newArray) = ([ArrayEntry](), [ArrayEntry]())
-    var changes = [Change<T>]()
-    var deleteOffsets = Array(repeating: 0, count: old.count)
-    var runningDeleteOffset = 0
-    var runningOffset = 0
-    var offset = 0
-
-    for element in old[0...] {
-      defer { offset += 1 }
-      let entry = table[element.hashValue] ?? TableEntry()
-      entry.oldCounter = entry.oldCounter.increment()
-      entry.indexesInOld.append(offset)
-      let oldArrayEntry: ArrayEntry = .tableEntry(entry)
-      oldArray.append(oldArrayEntry)
-      table[element.hashValue] = entry
+    if new.isEmpty {
+      var changes = [Change<T>]()
+      for (offset, element) in old.enumerated() {
+        changes.append(Change(.delete,
+                              item: element,
+                              index: offset))
+      }
+      return changes
     }
 
-    offset = 0
-    for element in new[0...] {
-      defer { offset += 1 }
-      let entry = table[element.hashValue] ?? TableEntry()
-      let arrayEntry: ArrayEntry = .tableEntry(entry)
-      entry.newCounter = entry.newCounter.increment()
-      newArray.append(arrayEntry)
-      table[element.hashValue] = entry
+    var table = [Int: TableEntry]()
+    var (oldArray, newArray) = ([ArrayEntry](), [ArrayEntry]())
+    var deleteOffsets = Array(repeating: 0, count: old.count)
+    var changes = [Change<T>]()
+    var (runningDeleteOffset, runningOffset, offset) = (0, 0, 0)
 
-      switch arrayEntry {
-      case .tableEntry(let entry):
-        guard !entry.indexesInOld.isEmpty else { continue }
-        let indexOfOld = entry.indexesInOld.removeFirst()
-        let isObservation1 = entry.newCounter == .one &&
-          entry.oldCounter == .one
-        let isObservation2 = entry.newCounter != .zero &&
-          entry.oldCounter != .zero && newArray[offset] == oldArray[indexOfOld]
-        if isObservation1 || isObservation2 {
-          newArray[offset] = .indexInOther(indexOfOld)
-          oldArray[indexOfOld] = .indexInOther(offset)
-        }
-      case .indexInOther:
-        continue
+    // 1 Pass
+    for element in new[0...].lazy {
+      defer { offset += 1 }
+
+      let entry: TableEntry
+      if let tableEntry = table[element.hashValue] {
+        entry = tableEntry
+      } else {
+        entry = TableEntry()
+      }
+
+      table[element.hashValue] = entry
+      entry.newCounter = entry.newCounter.increment()
+      newArray.append(.tableEntry(entry))
+    }
+
+    // 2 Pass
+    offset = 0
+    for element in old[0...].lazy {
+      defer { offset += 1 }
+
+      let entry: TableEntry
+      if let tableEntry = table[element.hashValue] {
+        entry = tableEntry
+      } else {
+        entry = TableEntry()
+      }
+
+      table[element.hashValue] = entry
+      entry.oldCounter = entry.oldCounter.increment()
+      entry.indexesInOld.append(offset)
+      oldArray.append(.tableEntry(entry))
+    }
+
+    // 3rd Pass
+    offset = 0
+    for element in newArray[0...].lazy {
+      defer { offset += 1 }
+      if case let .tableEntry(entry) = element, (entry.appearsInBoth && !entry.indexesInOld.isEmpty) {
+        let oldIndex = entry.indexesInOld.removeFirst()
+        newArray[offset] = .indexInOther(oldIndex)
+        oldArray[oldIndex] = .indexInOther(offset)
       }
     }
 
-    // Handle deletions
+    // 4th Pass
+    offset = 1
+    repeat {
+      if case let .indexInOther(otherIndex) = newArray[offset], otherIndex + 1 < oldArray.count,
+        case let .tableEntry(newEntry) = newArray[offset + 1],
+        case let .tableEntry(oldEntry) = oldArray[otherIndex + 1], newEntry === oldEntry {
+        newArray[offset + 1] = .indexInOther(otherIndex + 1)
+        oldArray[otherIndex + 1] = .indexInOther(offset + 1)
+      }
+      offset += 1
+    } while offset < newArray.count - 1
+
+    // 5th Pass
+    offset = newArray.count - 1
+    repeat {
+      if case let .indexInOther(otherIndex) = newArray[offset], otherIndex - 1 >= 0,
+        case let .tableEntry(newEntry) = newArray[offset - 1],
+        case let .tableEntry(oldEntry) = oldArray[otherIndex - 1], newEntry === oldEntry {
+        newArray[offset + 1] = .indexInOther(otherIndex + 1)
+        oldArray[otherIndex + 1] = .indexInOther(offset + 1)
+      }
+      offset -= 1
+    } while offset > 0
+
+    // Handle deleted objects
     offset = 0
-    for element in oldArray[0...] {
+    for element in oldArray[0...].lazy {
       defer { offset += 1 }
-
-      deleteOffsets[offset] = runningDeleteOffset
-      guard case .tableEntry = element else { continue }
-
-      changes.append(Change(.delete,
-                            item: old[offset],
-                            index: offset))
-      runningDeleteOffset += 1
+      deleteOffsets[offset] = runningOffset
+      if case let .tableEntry(entry) = element {
+        changes.append(Change(.delete,
+                              item: old[offset],
+                              index: offset))
+        runningOffset += 1
+      }
     }
 
     // Handle insert, updates and move.
-
     offset = 0
-    for element in newArray[0...] {
+    for element in newArray[0...].lazy {
       defer { offset += 1 }
       switch element {
-      case .tableEntry:
-        runningOffset += 1
+      case .tableEntry(_):
         changes.append(Change(.insert,
                               item: new[offset],
                               index: offset))
+        runningOffset += 1
       case .indexInOther(let oldIndex):
         if old[oldIndex] != new[offset] {
-          changes.append(Change(.replace,
+          changes.append(Change(.update,
                                 item: old[oldIndex],
                                 index: oldIndex,
                                 newIndex: offset,
                                 newItem: new[offset]))
-        }
-
-        let deleteOffset = deleteOffsets[oldIndex]
-        if (oldIndex - deleteOffset + runningOffset) != offset {
-          changes.append(Change(.move,
-                                item: new[offset],
-                                index: oldIndex,
-                                newIndex: offset))
+        } else {
+          let deleteOffset = deleteOffsets[oldIndex]
+          if (oldIndex - deleteOffset + runningOffset) != offset {
+            changes.append(Change(.move,
+                                  item: new[offset],
+                                  index: oldIndex,
+                                  newIndex: offset))
+          }
         }
       }
     }
