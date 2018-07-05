@@ -35,7 +35,7 @@ class UICollectionViewExtensionsTests: XCTestCase {
     var ranBefore: Bool = false
     var ranCompletion: Bool = false
 
-    collectionView.reload(with: changes, before: {
+    collectionView.reload(with: changes, updateDataSource: {
       dataSource.models = new
       ranBefore = true
     }) {
@@ -63,7 +63,7 @@ class UICollectionViewExtensionsTests: XCTestCase {
     var ranBefore: Bool = false
     var ranCompletion: Bool = false
 
-    collectionView.reload(with: changes, before: {
+    collectionView.reload(with: changes, updateDataSource: {
       dataSource.models = new
       ranBefore = true
     }) {
@@ -91,7 +91,7 @@ class UICollectionViewExtensionsTests: XCTestCase {
     var ranBefore: Bool = false
     var ranCompletion: Bool = false
 
-    collectionView.reload(with: changes, before: {
+    collectionView.reload(with: changes, updateDataSource: {
       dataSource.models = new
       ranBefore = true
     }) {
@@ -119,7 +119,7 @@ class UICollectionViewExtensionsTests: XCTestCase {
     var ranBefore: Bool = false
     var ranCompletion: Bool = false
 
-    collectionView.reload(with: changes, before: {
+    collectionView.reload(with: changes, updateDataSource: {
       dataSource.models = new
       ranBefore = true
     }) {
