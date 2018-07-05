@@ -1,8 +1,8 @@
 import Foundation
 
-public struct Change<T> {
+public struct Change<T: Equatable> {
   public enum Kind {
-    case insert, delete, replace, move
+    case insert, delete, update, move
   }
 
   public let kind: Kind

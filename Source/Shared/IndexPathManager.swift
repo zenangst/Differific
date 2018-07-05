@@ -12,7 +12,7 @@ class IndexPathManager {
                                         moves: [(from: IndexPath, to: IndexPath)]) {
     let deletions = map(.delete, in: changeSet, section: section)
     let insertions = map(.insert, in: changeSet, section: section)
-    let updates = map(.replace, in: changeSet, section: section)
+    let updates = map(.update, in: changeSet, section: section)
     let moves = changeSet.filter { $0.kind == .move }.compactMap {
       (from: IndexPath(item: $0.index, section: section),
        to: IndexPath(item: $0.newIndex!, section: section))
