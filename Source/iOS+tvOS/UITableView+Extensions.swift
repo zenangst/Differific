@@ -13,7 +13,7 @@ public extension UITableView {
   public func reload<T: Hashable>(with changes: [Change<T>],
                                   animation: UITableViewRowAnimation = .automatic,
                                   section: Int = 0,
-                                  before: (() -> Void)? = nil,
+                                  updateDataSource: (() -> Void),
                                   completion: (() -> Void)? = nil) {
     guard !changes.isEmpty else {
       completion?()
@@ -26,10 +26,9 @@ public extension UITableView {
     let manager = IndexPathManager()
     let result = manager.process(changes, section: section)
 
-    before?()
-
     if #available(iOS 11, tvOS 11, *) {
       performBatchUpdates({
+        updateDataSource()
         insertRows(at: result.insert, with: animation)
         reloadRows(at: result.updates, with: animation)
         deleteRows(at: result.deletions, with: animation)
@@ -37,6 +36,7 @@ public extension UITableView {
       })
     } else {
       beginUpdates()
+      updateDataSource()
       insertRows(at: result.insert, with: animation)
       reloadRows(at: result.updates, with: animation)
       deleteRows(at: result.deletions, with: animation)

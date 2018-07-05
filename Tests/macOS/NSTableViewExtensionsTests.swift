@@ -27,7 +27,7 @@ class NSTableViewExtensionsTests: XCTestCase {
     var ranBefore: Bool = false
     var ranCompletion: Bool = false
 
-    tableView.reload(with: changes, animation: .effectFade, before: {
+    tableView.reload(with: changes, animation: .effectFade, updateDataSource: {
       dataSource.models = new
       ranBefore = true
     }) {
@@ -51,7 +51,7 @@ class NSTableViewExtensionsTests: XCTestCase {
     var ranBefore: Bool = false
     var ranCompletion: Bool = false
 
-    tableView.reload(with: changes, animation: .effectFade, before: {
+    tableView.reload(with: changes, animation: .effectFade, updateDataSource: {
       dataSource.models = new
       ranBefore = true
     }) {
@@ -75,7 +75,7 @@ class NSTableViewExtensionsTests: XCTestCase {
     var ranBefore: Bool = false
     var ranCompletion: Bool = false
 
-    tableView.reload(with: changes, animation: .effectFade, before: {
+    tableView.reload(with: changes, animation: .effectFade, updateDataSource: {
       dataSource.models = new
       ranBefore = true
     }) {
@@ -99,7 +99,7 @@ class NSTableViewExtensionsTests: XCTestCase {
     var ranBefore: Bool = false
     var ranCompletion: Bool = false
 
-    tableView.reload(with: changes, animation: .effectFade, before: {
+    tableView.reload(with: changes, animation: .effectFade, updateDataSource: {
       dataSource.models = new
       ranBefore = true
     }) {

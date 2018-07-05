@@ -35,9 +35,8 @@ class NSCollectionViewExtensionsTests: XCTestCase {
     let changes = manager.diff(old, new)
     var ranBefore: Bool = false
     var ranCompletion: Bool = false
-
-    dataSource.models = new
-    collectionView.reload(with: changes, before: {
+    collectionView.reload(with: changes, updateDataSource: {
+      dataSource.models = new
       ranBefore = true
     }) {
       ranCompletion = true
@@ -64,8 +63,8 @@ class NSCollectionViewExtensionsTests: XCTestCase {
     var ranBefore: Bool = false
     var ranCompletion: Bool = false
 
-    dataSource.models = new
-    collectionView.reload(with: changes, before: {
+    collectionView.reload(with: changes, updateDataSource: {
+      dataSource.models = new
       ranBefore = true
     }) {
       ranCompletion = true
@@ -92,8 +91,8 @@ class NSCollectionViewExtensionsTests: XCTestCase {
     var ranBefore: Bool = false
     var ranCompletion: Bool = false
 
-    dataSource.models = new
-    collectionView.reload(with: changes, before: {
+    collectionView.reload(with: changes, updateDataSource: {
+      dataSource.models = new
       ranBefore = true
     }) {
       ranCompletion = true
@@ -120,8 +119,8 @@ class NSCollectionViewExtensionsTests: XCTestCase {
     var ranBefore: Bool = false
     var ranCompletion: Bool = false
 
-    dataSource.models = new
-    collectionView.reload(with: changes, before: {
+    collectionView.reload(with: changes, updateDataSource: {
+      dataSource.models = new
       ranBefore = true
     }) {
       ranCompletion = true

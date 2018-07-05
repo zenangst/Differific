@@ -34,7 +34,7 @@ class UITableViewExtensionsTests: XCTestCase {
     var ranBefore: Bool = false
     var ranCompletion: Bool = false
 
-    tableView.reload(with: changes, before: {
+    tableView.reload(with: changes, updateDataSource: {
       dataSource.models = new
       ranBefore = true
     }) {
@@ -60,7 +60,7 @@ class UITableViewExtensionsTests: XCTestCase {
     var ranBefore: Bool = false
     var ranCompletion: Bool = false
 
-    tableView.reload(with: changes, before: {
+    tableView.reload(with: changes, updateDataSource: {
       dataSource.models = new
       ranBefore = true
     }) {
@@ -86,7 +86,7 @@ class UITableViewExtensionsTests: XCTestCase {
     var ranBefore: Bool = false
     var ranCompletion: Bool = false
 
-    tableView.reload(with: changes, before: {
+    tableView.reload(with: changes, updateDataSource: {
       dataSource.models = new
       ranBefore = true
     }) {
@@ -112,7 +112,7 @@ class UITableViewExtensionsTests: XCTestCase {
     var ranBefore: Bool = false
     var ranCompletion: Bool = false
 
-    tableView.reload(with: changes, before: {
+    tableView.reload(with: changes, updateDataSource: {
       dataSource.models = new
       ranBefore = true
     }) {

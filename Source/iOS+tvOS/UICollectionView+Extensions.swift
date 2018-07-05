@@ -11,7 +11,7 @@ extension UICollectionView {
   ///   - completion: A closure that is invoked after the updates are done.
   public func reload<T: Hashable>(with changes: [Change<T>],
                                   section: Int = 0,
-                                  before: (() -> Void)? = nil,
+                                  updateDataSource: (() -> Void),
                                   completion: (() -> Void)? = nil) {
     guard !changes.isEmpty else {
       completion?()
@@ -24,9 +24,8 @@ extension UICollectionView {
     let manager = IndexPathManager()
     let result = manager.process(changes, section: section)
 
-    before?()
-
     performBatchUpdates({
+      updateDataSource()
       insertItems(at: result.insert)
       reloadItems(at: result.updates)
       deleteItems(at: result.deletions)
