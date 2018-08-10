@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = "Differific"
   s.summary          = "A fast and convenient diffing framework"
-  s.version          = "0.4.0"
+  s.version          = "0.4.1"
   s.homepage         = "https://github.com/zenangst/Differific"
   s.license          = 'MIT'
   s.author           = { "Christoffer Winterkvist" => "christoffer@winterkvist.com" }
