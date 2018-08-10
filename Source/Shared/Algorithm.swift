@@ -20,8 +20,6 @@ class Algorithm {
 
     // 1 Pass
     for element in new[0...].lazy {
-      defer { offset += 1 }
-
       let entry: TableEntry
       if let tableEntry = table[element.hashValue] {
         entry = tableEntry
@@ -35,7 +33,6 @@ class Algorithm {
     }
 
     // 2 Pass
-    offset = 0
     for element in old[0...].lazy {
       defer { offset += 1 }
 
@@ -81,8 +78,8 @@ class Algorithm {
       if case let .indexInOther(otherIndex) = newArray[offset], otherIndex - 1 >= 0,
         case let .tableEntry(newEntry) = newArray[offset - 1],
         case let .tableEntry(oldEntry) = oldArray[otherIndex - 1], newEntry === oldEntry {
-        newArray[offset + 1] = .indexInOther(otherIndex + 1)
-        oldArray[otherIndex + 1] = .indexInOther(offset + 1)
+        newArray[offset - 1] = .indexInOther(otherIndex - 1)
+        oldArray[otherIndex - 1] = .indexInOther(offset - 1)
       }
       offset -= 1
     } while offset > 0
