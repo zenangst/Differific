@@ -23,12 +23,18 @@ public extension NSCollectionView {
 
     performBatchUpdates({
       updateDataSource()
-      insertItems(at: Set(result.insert))
-      reloadItems(at: Set(result.updates))
-      deleteItems(at: Set(result.deletions))
-      result.moves.forEach { moveItem(at: $0.from, to: $0.to) }
+      validateUpdates(result.insert, then: insertItems)
+      validateUpdates(result.updates, then: reloadItems)
+      validateUpdates(result.deletions, then: deleteItems)
+      if !result.moves.isEmpty {
+        result.moves.forEach { moveItem(at: $0.from, to: $0.to) }
+      }
     }, completionHandler: nil)
 
     completion?()
+  }
+
+  private func validateUpdates(_ collection: [IndexPath], then: (Set<IndexPath>) -> Void) {
+    if !collection.isEmpty { then(Set(collection)) }
   }
 }

@@ -270,8 +270,8 @@
 		D5C6296A1C3A809D007F7B7C /* iOS+tvOS */ = {
 			isa = PBXGroup;
 			children = (
-				BDBF80B720923FB90002CE93 /* UITableView+Extensions.swift */,
 				BDBF80B820923FB90002CE93 /* UICollectionView+Extensions.swift */,
+				BDBF80B720923FB90002CE93 /* UITableView+Extensions.swift */,
 			);
 			path = "iOS+tvOS";
 			sourceTree = "<group>";
