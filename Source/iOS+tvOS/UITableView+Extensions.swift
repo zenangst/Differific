@@ -29,21 +29,31 @@ public extension UITableView {
     if #available(iOS 11, tvOS 11, *) {
       performBatchUpdates({
         updateDataSource()
-        insertRows(at: result.insert, with: animation)
-        reloadRows(at: result.updates, with: animation)
-        deleteRows(at: result.deletions, with: animation)
-        result.moves.forEach { moveRow(at: $0.from, to: $0.to) }
+        validateUpdates(result.insert, animation: animation, then: insertRows)
+        validateUpdates(result.updates, animation: animation, then: reloadRows)
+        validateUpdates(result.deletions, animation: animation, then: deleteRows)
+        if !result.moves.isEmpty {
+          result.moves.forEach { moveRow(at: $0.from, to: $0.to) }
+        }
       })
     } else {
       beginUpdates()
       updateDataSource()
-      insertRows(at: result.insert, with: animation)
-      reloadRows(at: result.updates, with: animation)
-      deleteRows(at: result.deletions, with: animation)
-      result.moves.forEach { moveRow(at: $0.from, to: $0.to) }
+      validateUpdates(result.insert, animation: animation, then: insertRows)
+      validateUpdates(result.updates, animation: animation, then: reloadRows)
+      validateUpdates(result.deletions, animation: animation, then: deleteRows)
+      if !result.moves.isEmpty {
+        result.moves.forEach { moveRow(at: $0.from, to: $0.to) }
+      }
       endUpdates()
     }
 
     completion?()
+  }
+
+  private func validateUpdates(_ collection: [IndexPath],
+                               animation: UITableViewRowAnimation,
+                               then: ([IndexPath], UITableViewRowAnimation) -> Void) {
+    if !collection.isEmpty { then(collection, animation) }
   }
 }
