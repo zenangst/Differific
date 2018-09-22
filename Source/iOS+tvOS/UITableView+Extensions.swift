@@ -11,7 +11,7 @@ public extension UITableView {
   ///             This is where you should update your data source.
   ///   - completion: A closure that is invoked after the updates are done.
   public func reload<T: Hashable>(with changes: [Change<T>],
-                                  animation: UITableViewRowAnimation = .automatic,
+                                  animation: UITableView.RowAnimation = .automatic,
                                   section: Int = 0,
                                   updateDataSource: (() -> Void),
                                   completion: (() -> Void)? = nil) {
@@ -52,8 +52,8 @@ public extension UITableView {
   }
 
   private func validateUpdates(_ collection: [IndexPath],
-                               animation: UITableViewRowAnimation,
-                               then: ([IndexPath], UITableViewRowAnimation) -> Void) {
+                               animation: UITableView.RowAnimation,
+                               then: ([IndexPath], UITableView.RowAnimation) -> Void) {
     if !collection.isEmpty { then(collection, animation) }
   }
 }
