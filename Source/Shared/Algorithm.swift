@@ -10,6 +10,14 @@ class Algorithm {
                               index: offset))
       }
       return changes
+    } else if old.isEmpty {
+      var changes = [Change<T>]()
+      for (offset, element) in new.enumerated() {
+        changes.append(Change(.insert,
+                              item: element,
+                              index: offset))
+      }
+      return changes
     }
 
     var table = [Int: TableEntry]()
