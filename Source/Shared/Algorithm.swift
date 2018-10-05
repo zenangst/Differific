@@ -71,7 +71,7 @@ class Algorithm {
     // 4th Pass
     offset = 1
 
-    if newArray.count > offset {
+    if offset < newArray.count - 1 {
       repeat {
         if case let .indexInOther(otherIndex) = newArray[offset], otherIndex + 1 < oldArray.count,
           case let .tableEntry(newEntry) = newArray[offset + 1],
