@@ -70,7 +70,8 @@ class Algorithm {
 
     // 4th Pass
     offset = 1
-    if new.count > offset {
+
+    if newArray.count > offset {
       repeat {
         if case let .indexInOther(otherIndex) = newArray[offset], otherIndex + 1 < oldArray.count,
           case let .tableEntry(newEntry) = newArray[offset + 1],
@@ -80,10 +81,12 @@ class Algorithm {
         }
         offset += 1
       } while offset < newArray.count - 1
+    }
+    
+    // 5th Pass
+    offset = newArray.count - 1
 
-
-      // 5th Pass
-      offset = newArray.count - 1
+    if offset > newArray.count {
       repeat {
         if case let .indexInOther(otherIndex) = newArray[offset], otherIndex - 1 >= 0,
           case let .tableEntry(newEntry) = newArray[offset - 1],
@@ -94,6 +97,7 @@ class Algorithm {
         offset -= 1
       } while offset > 0
     }
+
 
     // Handle deleted objects
     offset = 0
