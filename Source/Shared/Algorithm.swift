@@ -108,7 +108,7 @@ class Algorithm {
     offset = 0
     for element in oldArray[0...].lazy {
       deleteOffsets[offset] = runningOffset
-      if case let .tableEntry(entry) = element {
+      if case .tableEntry(_) = element {
         changes.append(Change(.delete,
                               item: old[offset],
                               index: offset))
