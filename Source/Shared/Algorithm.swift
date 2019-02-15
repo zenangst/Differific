@@ -88,7 +88,7 @@ class Algorithm {
         offset += 1
       } while offset < newArray.count - 1
     }
-    
+
     // 5th Pass
     offset = newArray.count - 1
 
