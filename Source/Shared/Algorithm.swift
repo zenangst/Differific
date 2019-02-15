@@ -66,7 +66,8 @@ class Algorithm {
     // 3rd Pass
     offset = 0
     for element in newArray[0...].lazy {
-      if case let .tableEntry(entry) = element, (entry.appearsInBoth && !entry.indexesInOld.isEmpty) {
+      if case let .tableEntry(entry) = element,
+        (entry.appearsInBoth && !entry.indexesInOld.isEmpty) {
         let oldIndex = entry.indexesInOld.removeFirst()
         newArray[offset] = .indexInOther(oldIndex)
         oldArray[oldIndex] = .indexInOther(offset)
