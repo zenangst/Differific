@@ -48,8 +48,6 @@ class Algorithm {
 
     // 2 Pass
     for element in old[0...].lazy {
-      defer { offset += 1 }
-
       let entry: TableEntry
       if let tableEntry = table[element.hashValue] {
         entry = tableEntry
@@ -61,17 +59,18 @@ class Algorithm {
       entry.oldCounter = entry.oldCounter.increment()
       entry.indexesInOld.append(offset)
       oldArray.append(.tableEntry(entry))
+      offset += 1
     }
 
     // 3rd Pass
     offset = 0
     for element in newArray[0...].lazy {
-      defer { offset += 1 }
       if case let .tableEntry(entry) = element, (entry.appearsInBoth && !entry.indexesInOld.isEmpty) {
         let oldIndex = entry.indexesInOld.removeFirst()
         newArray[offset] = .indexInOther(oldIndex)
         oldArray[oldIndex] = .indexInOther(offset)
       }
+      offset += 1
     }
 
     // 4th Pass
@@ -104,11 +103,9 @@ class Algorithm {
       } while offset > 0
     }
 
-
     // Handle deleted objects
     offset = 0
     for element in oldArray[0...].lazy {
-      defer { offset += 1 }
       deleteOffsets[offset] = runningOffset
       if case let .tableEntry(entry) = element {
         changes.append(Change(.delete,
@@ -116,12 +113,12 @@ class Algorithm {
                               index: offset))
         runningOffset += 1
       }
+      offset += 1
     }
 
     // Handle insert, updates and move.
     offset = 0
     for element in newArray[0...].lazy {
-      defer { offset += 1 }
       switch element {
       case .tableEntry(_):
         changes.append(Change(.insert,
@@ -145,6 +142,7 @@ class Algorithm {
           }
         }
       }
+      offset += 1
     }
 
     return changes
