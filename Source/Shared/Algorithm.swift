@@ -26,7 +26,8 @@ class Algorithm {
     var (oldArray, newArray) = ([ArrayEntry](), [ArrayEntry]())
     var deleteOffsets = Array(repeating: 0, count: old.count)
     var changes = [Change<T>]()
-    var (runningDeleteOffset, runningOffset, offset) = (0, 0, 0)
+    var (runningOffset, offset) = (0, 0)
+
     table.reserveCapacity(new.count > old.count ? new.count : old.count)
     changes.reserveCapacity(newArray.count + oldArray.count)
     newArray.reserveCapacity(new.count)
