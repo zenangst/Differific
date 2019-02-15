@@ -147,4 +147,25 @@ class DiffManagerTests: XCTestCase {
 
     XCTAssertEqual(result.count, 5)
   }
+
+  func testPerformance() {
+    let diffManager = DiffManager()
+    var old = [Int]()
+    var new = [Int]()
+    let amount = 1_000_000
+
+    new.reserveCapacity(amount)
+    old.reserveCapacity(amount)
+
+    for x in 0..<amount {
+      old.append(x)
+      new.append(x)
+    }
+
+    let startTime = CACurrentMediaTime()
+
+    _ = diffManager.diff(old, new.reversed())
+
+    NSLog("🏎 Total Runtime: \(CACurrentMediaTime() - startTime)")
+  }
 }
