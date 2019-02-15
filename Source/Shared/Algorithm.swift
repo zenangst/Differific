@@ -4,6 +4,7 @@ class Algorithm {
   public static func diff<T: Hashable>(old: [T], new: [T]) -> [Change<T>] {
     if new.isEmpty {
       var changes = [Change<T>]()
+      changes.reserveCapacity(old.count)
       for (offset, element) in old.enumerated() {
         changes.append(Change(.delete,
                               item: element,
@@ -12,6 +13,7 @@ class Algorithm {
       return changes
     } else if old.isEmpty {
       var changes = [Change<T>]()
+      changes.reserveCapacity(new.count)
       for (offset, element) in new.enumerated() {
         changes.append(Change(.insert,
                               item: element,
@@ -25,6 +27,10 @@ class Algorithm {
     var deleteOffsets = Array(repeating: 0, count: old.count)
     var changes = [Change<T>]()
     var (runningDeleteOffset, runningOffset, offset) = (0, 0, 0)
+    table.reserveCapacity(new.count > old.count ? new.count : old.count)
+    changes.reserveCapacity(newArray.count + oldArray.count)
+    newArray.reserveCapacity(new.count)
+    oldArray.reserveCapacity(old.count)
 
     // 1 Pass
     for element in new[0...].lazy {
