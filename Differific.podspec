@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = "Differific"
   s.summary          = "A fast and convenient diffing framework"
-  s.version          = "0.4.1"
+  s.version          = "0.5.2"
   s.homepage         = "https://github.com/zenangst/Differific"
   s.license          = 'MIT'
   s.author           = { "Christoffer Winterkvist" => "christoffer@winterkvist.com" }
@@ -20,5 +20,5 @@ Pod::Spec.new do |s|
   s.tvos.source_files = 'Source/{iOS+tvOS,Shared}/**/*'
   s.osx.source_files = 'Source/{macOS,Shared}/**/*'
 
-  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
+  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.2' }
 end

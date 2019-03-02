@@ -11,7 +11,7 @@ public extension UITableView {
   ///             This is where you should update your data source.
   ///   - completion: A closure that is invoked after the updates are done.
   public func reload<T: Hashable>(with changes: [Change<T>],
-                                  animation: UITableViewRowAnimation = .automatic,
+                                  animation: UITableView.RowAnimation = .automatic,
                                   section: Int = 0,
                                   updateDataSource: (() -> Void),
                                   completion: (() -> Void)? = nil) {
@@ -29,21 +29,31 @@ public extension UITableView {
     if #available(iOS 11, tvOS 11, *) {
       performBatchUpdates({
         updateDataSource()
-        insertRows(at: result.insert, with: animation)
-        reloadRows(at: result.updates, with: animation)
-        deleteRows(at: result.deletions, with: animation)
-        result.moves.forEach { moveRow(at: $0.from, to: $0.to) }
+        validateUpdates(result.insert, animation: animation, then: insertRows)
+        validateUpdates(result.updates, animation: animation, then: reloadRows)
+        validateUpdates(result.deletions, animation: animation, then: deleteRows)
+        if !result.moves.isEmpty {
+          result.moves.forEach { moveRow(at: $0.from, to: $0.to) }
+        }
       })
     } else {
       beginUpdates()
       updateDataSource()
-      insertRows(at: result.insert, with: animation)
-      reloadRows(at: result.updates, with: animation)
-      deleteRows(at: result.deletions, with: animation)
-      result.moves.forEach { moveRow(at: $0.from, to: $0.to) }
+      validateUpdates(result.insert, animation: animation, then: insertRows)
+      validateUpdates(result.updates, animation: animation, then: reloadRows)
+      validateUpdates(result.deletions, animation: animation, then: deleteRows)
+      if !result.moves.isEmpty {
+        result.moves.forEach { moveRow(at: $0.from, to: $0.to) }
+      }
       endUpdates()
     }
 
     completion?()
+  }
+
+  private func validateUpdates(_ collection: [IndexPath],
+                               animation: UITableView.RowAnimation,
+                               then: ([IndexPath], UITableView.RowAnimation) -> Void) {
+    if !collection.isEmpty { then(collection, animation) }
   }
 }

@@ -26,14 +26,20 @@ extension UICollectionView {
 
     performBatchUpdates({
       updateDataSource()
-      insertItems(at: result.insert)
-      reloadItems(at: result.updates)
-      deleteItems(at: result.deletions)
-      result.moves.forEach {
-        moveItem(at: $0.from, to: $0.to)
+      validateUpdates(result.insert, then: insertItems)
+      validateUpdates(result.updates, then: reloadItems)
+      validateUpdates(result.deletions, then: deleteItems)
+      if !result.moves.isEmpty {
+        result.moves.forEach {
+          moveItem(at: $0.from, to: $0.to)
+        }
       }
     })
 
     completion?()
+  }
+
+  private func validateUpdates(_ collection: [IndexPath], then: ([IndexPath]) -> Void) {
+    if !collection.isEmpty { then(collection) }
   }
 }

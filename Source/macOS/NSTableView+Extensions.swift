@@ -26,15 +26,27 @@ public extension NSTableView {
     let deletions = IndexSet(result.deletions.compactMap { $0.item })
     let updates = IndexSet(result.updates.compactMap { $0.item })
 
-
     beginUpdates()
     updateDataSource()
-    removeRows(at: deletions, withAnimation: animation)
-    insertRows(at: insertions, withAnimation: animation)
-    reloadData(forRowIndexes: updates, columnIndexes: IndexSet([section]))
-    result.moves.forEach { moveRow(at: $0.from.item, to: $0.to.item) }
+    validateUpdates(insertions, animation: animation, then: insertRows)
+    validateUpdates(deletions, animation: animation, then: removeRows)
+
+    if !updates.isEmpty {
+      reloadData(forRowIndexes: updates, columnIndexes: IndexSet([section]))
+    }
+
+    if !result.moves.isEmpty {
+      result.moves.forEach { moveRow(at: $0.from.item, to: $0.to.item) }
+    }
+
     endUpdates()
 
     completion?()
+  }
+
+  private func validateUpdates(_ collection: IndexSet,
+                               animation: NSTableView.AnimationOptions,
+                               then: (IndexSet, NSTableView.AnimationOptions) -> Void) {
+    if !collection.isEmpty { then(collection, animation) }
   }
 }
