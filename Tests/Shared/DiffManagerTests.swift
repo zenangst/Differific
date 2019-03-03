@@ -2,6 +2,13 @@ import XCTest
 import Differific
 
 class DiffManagerTests: XCTestCase {
+  struct MockDiffable: Hashable, Diffable {
+    let id: Int
+    var diffValue: Int {
+      return id
+    }
+  }
+
   struct MockObject: Hashable {
     let id: Int
     let name: String
@@ -146,6 +153,47 @@ class DiffManagerTests: XCTestCase {
     XCTAssertEqual(result[4].item, MockObject(id: 4, name: "Chris"))
 
     XCTAssertEqual(result.count, 5)
+  }
+
+  func testComparator() {
+    let old = [
+      MockObject(id: 0, name: "Foo"),
+      MockObject(id: 1, name: "Bar"),
+      MockObject(id: 2, name: "Baz")
+    ]
+    let new = [
+      MockObject(id: 1, name: "Foo0"),
+      MockObject(id: 0, name: "Bar1"),
+      MockObject(id: 3, name: "Baz2")
+    ]
+
+    let diffManager = DiffManager()
+    let changes = diffManager.diff(old, new, compare: { $0.id == $1.id })
+
+    XCTAssertEqual(changes[0].kind, .delete)
+    XCTAssertEqual(changes[1].kind, .move)
+    XCTAssertEqual(changes[2].kind, .insert)
+  }
+
+  func testDiffable() {
+    let old = [
+      MockDiffable(id: 0),
+      MockDiffable(id: 1),
+      MockDiffable(id: 2)
+    ]
+
+    let new = [
+      MockDiffable(id: 1),
+      MockDiffable(id: 0),
+      MockDiffable(id: 3)
+    ]
+
+    let diffManager = DiffManager()
+    let changes = diffManager.diff(old, new)
+
+    XCTAssertEqual(changes[0].kind, .delete)
+    XCTAssertEqual(changes[1].kind, .move)
+    XCTAssertEqual(changes[2].kind, .insert)
   }
 
   func testPerformance() {

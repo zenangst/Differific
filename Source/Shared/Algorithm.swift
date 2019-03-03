@@ -1,7 +1,7 @@
 import Foundation
 
 class Algorithm {
-  public static func diff<T: Hashable>(old: [T], new: [T]) -> [Change<T>] {
+  public static func diff<T: Hashable>(old: [T], new: [T], compare: (T,T) -> Bool) -> [Change<T>] {
     if new.isEmpty {
       var changes = [Change<T>]()
       changes.reserveCapacity(old.count)
@@ -35,28 +35,30 @@ class Algorithm {
 
     // 1 Pass
     for element in new[0...].lazy {
+      let diffValue = (element as? Diffable)?.diffValue ?? element.hashValue
       let entry: TableEntry
-      if let tableEntry = table[element.hashValue] {
+      if let tableEntry = table[diffValue] {
         entry = tableEntry
       } else {
         entry = TableEntry()
       }
 
-      table[element.hashValue] = entry
+      table[diffValue] = entry
       entry.newCounter += 1
       newArray.append(ArrayEntry(tableEntry: entry))
     }
 
     // 2 Pass
     for element in old[0...].lazy {
+      let diffValue = (element as? Diffable)?.diffValue ?? element.hashValue
       let entry: TableEntry
-      if let tableEntry = table[element.hashValue] {
+      if let tableEntry = table[diffValue] {
         entry = tableEntry
       } else {
         entry = TableEntry()
       }
 
-      table[element.hashValue] = entry
+      table[diffValue] = entry
       entry.oldCounter += 1
       entry.indexesInOld.append(offset)
       oldArray.append(ArrayEntry(tableEntry: entry))
@@ -135,7 +137,7 @@ class Algorithm {
         runningOffset += 1
       } else {
         let oldIndex = element.indexInOther
-        if old[oldIndex] != new[offset] {
+        if !compare(old[oldIndex], new[offset]) {
           changes.append(Change(.update,
                                 item: old[oldIndex],
                                 index: oldIndex,

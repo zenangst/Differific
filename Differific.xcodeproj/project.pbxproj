@@ -46,6 +46,9 @@
 		BDBF80E8209252440002CE93 /* UICollectionViewExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBF80E5209252440002CE93 /* UICollectionViewExtensionsTests.swift */; };
 		BDBF80EA20927B080002CE93 /* NSCollectionViewExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBF80E920927B080002CE93 /* NSCollectionViewExtensionTests.swift */; };
 		BDBF80EC20927B360002CE93 /* NSTableViewExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBF80EB20927B360002CE93 /* NSTableViewExtensionsTests.swift */; };
+		BDED0DC8222C57A800D7B46E /* Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDED0DC7222C57A800D7B46E /* Diffable.swift */; };
+		BDED0DC9222C57A800D7B46E /* Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDED0DC7222C57A800D7B46E /* Diffable.swift */; };
+		BDED0DCA222C57A800D7B46E /* Diffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDED0DC7222C57A800D7B46E /* Diffable.swift */; };
 		D284B1051F79038B00D94AF3 /* Differific.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D284B0FC1F79038B00D94AF3 /* Differific.framework */; };
 		D284B1381F7906DB00D94AF3 /* Info-iOS-Tests.plist in Resources */ = {isa = PBXBuildFile; fileRef = D284B12F1F7906DA00D94AF3 /* Info-iOS-Tests.plist */; };
 		D284B1391F7906DB00D94AF3 /* Info-tvOS-Tests.plist in Resources */ = {isa = PBXBuildFile; fileRef = D284B1301F7906DA00D94AF3 /* Info-tvOS-Tests.plist */; };
@@ -99,6 +102,7 @@
 		BDBF80E5209252440002CE93 /* UICollectionViewExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewExtensionsTests.swift; sourceTree = "<group>"; };
 		BDBF80E920927B080002CE93 /* NSCollectionViewExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSCollectionViewExtensionTests.swift; sourceTree = "<group>"; };
 		BDBF80EB20927B360002CE93 /* NSTableViewExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTableViewExtensionsTests.swift; sourceTree = "<group>"; };
+		BDED0DC7222C57A800D7B46E /* Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diffable.swift; sourceTree = "<group>"; };
 		D284B0FC1F79038B00D94AF3 /* Differific.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Differific.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D284B1041F79038B00D94AF3 /* Differific-tvOS-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Differific-tvOS-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D284B1181F79039F00D94AF3 /* Differific.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Differific.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -283,6 +287,7 @@
 				BD690D4F20DC143100E56E30 /* ArrayEntry.swift */,
 				BDBF80C420923FD00002CE93 /* Change.swift */,
 				BD690D4720DC13F700E56E30 /* Counter.swift */,
+				BDED0DC7222C57A800D7B46E /* Diffable.swift */,
 				BDBF80C320923FD00002CE93 /* DiffManager.swift */,
 				BDBF80C520923FD00002CE93 /* IndexPathManager.swift */,
 				BD690D4B20DC141200E56E30 /* TableEntry.swift */,
@@ -587,6 +592,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDED0DCA222C57A800D7B46E /* Diffable.swift in Sources */,
 				BDBF80CF20923FD00002CE93 /* IndexPathManager.swift in Sources */,
 				BDBF80D220923FD00002CE93 /* Algorithm.swift in Sources */,
 				BDBF80BC20923FB90002CE93 /* UICollectionView+Extensions.swift in Sources */,
@@ -621,6 +627,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDED0DC8222C57A800D7B46E /* Diffable.swift in Sources */,
 				BDBF80CD20923FD00002CE93 /* IndexPathManager.swift in Sources */,
 				BDBF80D020923FD00002CE93 /* Algorithm.swift in Sources */,
 				BDBF80BB20923FB90002CE93 /* UICollectionView+Extensions.swift in Sources */,
@@ -648,6 +655,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BDED0DC9222C57A800D7B46E /* Diffable.swift in Sources */,
 				BDBF80CE20923FD00002CE93 /* IndexPathManager.swift in Sources */,
 				BDBF80D120923FD00002CE93 /* Algorithm.swift in Sources */,
 				BDBF80D820923FFA0002CE93 /* NSTableView+Extensions.swift in Sources */,
