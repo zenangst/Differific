@@ -1,11 +1,11 @@
 import Foundation
 
 class TableEntry: Equatable {
-  var oldCounter: Counter = .zero
-  var newCounter: Counter = .zero
+  var oldCounter: Int = 0
+  var newCounter: Int = 0
   var indexesInOld: [Int] = []
   var appearsInBoth: Bool {
-    return oldCounter != .zero && newCounter != .zero
+    return oldCounter > 0 && newCounter > 0
   }
 
   static func == (lhs: TableEntry, rhs: TableEntry) -> Bool {

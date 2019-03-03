@@ -1,17 +1,11 @@
 import Foundation
 
-enum ArrayEntry: Equatable {
-  case tableEntry(TableEntry)
-  case indexInOther(Int)
+struct ArrayEntry: Equatable {
+  let tableEntry: TableEntry
+  var indexInOther: Int
 
-  public static func == (lhs: ArrayEntry, rhs: ArrayEntry) -> Bool {
-    switch (lhs, rhs) {
-    case (.tableEntry(let l), .tableEntry(let r)):
-      return l == r
-    case (.indexInOther(let l), .indexInOther(let r)):
-      return l == r
-    default:
-      return false
-    }
+  init(tableEntry: TableEntry, indexInOther: Int = -1) {
+    self.tableEntry = tableEntry
+    self.indexInOther = indexInOther
   }
 }
