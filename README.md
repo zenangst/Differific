@@ -1,11 +1,16 @@
 # Differific
 
+<div align="center">
+
 [![CI Status](https://travis-ci.org/zenangst/Differific.svg?branch=master)](https://travis-ci.org/zenangst/Differific)
 [![Version](https://img.shields.io/cocoapods/v/Differific.svg?style=flat)](http://cocoadocs.org/docsets/Differific)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![codecov](https://codecov.io/gh/zenangst/Differific/branch/master/graph/badge.svg)](https://codecov.io/gh/zenangst/Differific)
 [![License](https://img.shields.io/cocoapods/l/Differific.svg?style=flat)](http://cocoadocs.org/docsets/Differific)
 [![Platform](https://img.shields.io/cocoapods/p/Differific.svg?style=flat)](http://cocoadocs.org/docsets/Differific)
-![Swift](https://img.shields.io/badge/%20in-swift%204.0-orange.svg)
+![Swift](https://img.shields.io/badge/%20in-swift%204.2-orange.svg)
+
+</div>
 
 ## Description
 
