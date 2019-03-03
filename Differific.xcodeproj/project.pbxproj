@@ -103,6 +103,7 @@
 		BDBF80E920927B080002CE93 /* NSCollectionViewExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSCollectionViewExtensionTests.swift; sourceTree = "<group>"; };
 		BDBF80EB20927B360002CE93 /* NSTableViewExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSTableViewExtensionsTests.swift; sourceTree = "<group>"; };
 		BDED0DC7222C57A800D7B46E /* Diffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diffable.swift; sourceTree = "<group>"; };
+		BDED0DCB222C5FC000D7B46E /* codecov.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = codecov.yml; sourceTree = "<group>"; };
 		D284B0FC1F79038B00D94AF3 /* Differific.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Differific.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D284B1041F79038B00D94AF3 /* Differific-tvOS-Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Differific-tvOS-Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D284B1181F79039F00D94AF3 /* Differific.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Differific.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -234,15 +235,16 @@
 		D5B2E8951C3A780C00C0327D = {
 			isa = PBXGroup;
 			children = (
-				BD7221D52094885300D28B9C /* README.md */,
 				BD7221D42094863A00D28B9C /* .travis.yml */,
+				BDED0DCB222C5FC000D7B46E /* codecov.yml */,
 				BD2875752092EA56002AB5C3 /* Differific.podspec */,
+				D284B13F1F79081F00D94AF3 /* Info */,
 				D500FD111C3AABED00782D78 /* Playground-iOS.playground */,
 				D500FD121C3AAC8E00782D78 /* Playground-macOS.playground */,
-				D284B13F1F79081F00D94AF3 /* Info */,
+				D5B2E8A01C3A780C00C0327D /* Products */,
+				BD7221D52094885300D28B9C /* README.md */,
 				D5C629691C3A809D007F7B7C /* Source */,
 				D5C6298F1C3A8BDA007F7B7C /* Tests */,
-				D5B2E8A01C3A780C00C0327D /* Products */,
 			);
 			sourceTree = "<group>";
 		};
