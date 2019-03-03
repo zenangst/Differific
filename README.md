@@ -24,6 +24,7 @@ For more information about how the algorithm works and the performance of the al
 ## Features
 
 - [x] 🍩Built-in extensions for updating table & collection views.
+- [x] 🎩Customizable diffing.
 - [x] 🏎High performance.
 - [x] 📱iOS support.
 - [x] 💻macOS support.
