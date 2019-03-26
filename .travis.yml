@@ -6,8 +6,8 @@ script:
   - set -o pipefail && xcodebuild -project Differific.xcodeproj -scheme "Differific-macOS" -sdk macosx -enableCodeCoverage YES test | xcpretty
   - set -o pipefail && xcodebuild -project Differific.xcodeproj -scheme "Differific-iOS" -sdk iphonesimulator -destination name="iPhone 8" clean build | xcpretty
   - set -o pipefail && xcodebuild -project Differific.xcodeproj -scheme "Differific-iOS" -sdk iphonesimulator -destination name="iPhone 8" -enableCodeCoverage YES test | xcpretty
-  - set -o pipefail && xcodebuild -project Differific.xcodeproj -scheme "Differific-tvOS" -destination 'platform=tvOS Simulator,name=Apple TV,OS=11.4' clean build | xcpretty
-  - set -o pipefail && xcodebuild -project Differific.xcodeproj -scheme "Differific-tvOS" -destination 'platform=tvOS Simulator,name=Apple TV,OS=11.4' -enableCodeCoverage YES test | xcpretty
+  - set -o pipefail && xcodebuild -project Differific.xcodeproj -scheme "Differific-tvOS" -destination 'platform=tvOS Simulator,name=Apple TV,OS=12.2' clean build | xcpretty
+  - set -o pipefail && xcodebuild -project Differific.xcodeproj -scheme "Differific-tvOS" -destination 'platform=tvOS Simulator,name=Apple TV,OS=12.2' -enableCodeCoverage YES test | xcpretty
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
