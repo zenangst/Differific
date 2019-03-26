@@ -9,7 +9,7 @@ public extension NSCollectionView {
   ///   - before: A closure that will be invoked before the updates.
   ///             This is where you should update your data source.
   ///   - completion: A closure that is invoked after the updates are done.
-  public func reload<T: Hashable>(with changes: [Change<T>],
+  func reload<T: Hashable>(with changes: [Change<T>],
                                   section: Int = 0,
                                   updateDataSource: (() -> Void),
                                   completion: (() -> Void)? = nil) {
