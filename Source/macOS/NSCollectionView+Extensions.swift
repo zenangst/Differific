@@ -21,13 +21,13 @@ public extension NSCollectionView {
     let manager = IndexPathManager()
     let result = manager.process(changes, section: section)
 
-    performBatchUpdates({
+    animator().performBatchUpdates({
       updateDataSource()
-      validateUpdates(result.insert, then: insertItems)
-      validateUpdates(result.updates, then: reloadItems)
-      validateUpdates(result.deletions, then: deleteItems)
+      validateUpdates(result.insert, then: animator().insertItems)
+      validateUpdates(result.updates, then: animator().reloadItems)
+      validateUpdates(result.deletions, then: animator().deleteItems)
       if !result.moves.isEmpty {
-        result.moves.forEach { moveItem(at: $0.from, to: $0.to) }
+        result.moves.forEach { animator().moveItem(at: $0.from, to: $0.to) }
       }
     }, completionHandler: nil)
 
