@@ -9,10 +9,11 @@ public extension NSCollectionView {
   ///   - before: A closure that will be invoked before the updates.
   ///             This is where you should update your data source.
   ///   - completion: A closure that is invoked after the updates are done.
-  public func reload<T: Hashable>(with changes: [Change<T>],
-                                  section: Int = 0,
-                                  updateDataSource: (() -> Void),
-                                  completion: (() -> Void)? = nil) {
+  func reload<T: Hashable>(with changes: [Change<T>],
+                           animations: Bool = false,
+                           section: Int = 0,
+                           updateDataSource: (() -> Void),
+                           completion: (() -> Void)? = nil) {
     guard !changes.isEmpty else {
       completion?()
       return
@@ -20,14 +21,15 @@ public extension NSCollectionView {
 
     let manager = IndexPathManager()
     let result = manager.process(changes, section: section)
+    let object = animations ? animator() : self
 
-    animator().performBatchUpdates({
+    object.performBatchUpdates({
       updateDataSource()
-      validateUpdates(result.insert, then: animator().insertItems)
-      validateUpdates(result.updates, then: animator().reloadItems)
-      validateUpdates(result.deletions, then: animator().deleteItems)
+      validateUpdates(result.insert, then: object.insertItems)
+      validateUpdates(result.updates, then: object.reloadItems)
+      validateUpdates(result.deletions, then: object.deleteItems)
       if !result.moves.isEmpty {
-        result.moves.forEach { animator().moveItem(at: $0.from, to: $0.to) }
+        result.moves.forEach { object.moveItem(at: $0.from, to: $0.to) }
       }
     }, completionHandler: nil)
 

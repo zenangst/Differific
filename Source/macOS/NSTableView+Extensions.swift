@@ -10,22 +10,22 @@ public extension NSTableView {
   ///   - before: A closure that will be invoked before the updates.
   ///             This is where you should update your data source.
   ///   - completion: A closure that is invoked after the updates are done.
-  public func reload<T: Hashable>(with changes: [Change<T>],
-                                  animation: NSTableView.AnimationOptions,
-                                  section: Int = 0,
-                                  updateDataSource: (() -> Void),
-                                  completion: (() -> Void)? = nil) {
+  func reload<T: Hashable>(with changes: [Change<T>],
+                           animation: NSTableView.AnimationOptions,
+                           section: Int = 0,
+                           updateDataSource: (() -> Void),
+                           completion: (() -> Void)? = nil) {
     guard !changes.isEmpty else {
       completion?()
       return
     }
-
+    
     let manager = IndexPathManager()
     let result = manager.process(changes, section: section)
     let insertions = IndexSet(result.insert.compactMap { $0.item })
     let deletions = IndexSet(result.deletions.compactMap { $0.item })
     let updates = IndexSet(result.updates.compactMap { $0.item })
-
+    
     animator().beginUpdates()
     updateDataSource()
     validateUpdates(insertions, animation: animation, then: animator().insertRows)
