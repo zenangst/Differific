@@ -33,6 +33,8 @@ public extension NSCollectionView {
       }
     }, completionHandler: nil)
 
+    needsLayout = true
+
     completion?()
   }
 

@@ -41,6 +41,8 @@ public extension NSTableView {
 
     animator().endUpdates()
 
+    needsLayout = true
+
     completion?()
   }
 
