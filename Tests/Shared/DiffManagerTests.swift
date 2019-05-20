@@ -12,7 +12,9 @@ class DiffManagerTests: XCTestCase {
   struct MockObject: Hashable {
     let id: Int
     let name: String
-    var hashValue: Int { return id.hashValue }
+    func hash(into hasher: inout Hasher) {
+      hasher.combine(id.hashValue)
+    }
   }
 
   let manager = DiffManager()
