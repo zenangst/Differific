@@ -11,35 +11,37 @@ public extension NSTableView {
   ///             This is where you should update your data source.
   ///   - completion: A closure that is invoked after the updates are done.
   func reload<T: Hashable>(with changes: [Change<T>],
-                                  animation: NSTableView.AnimationOptions,
-                                  section: Int = 0,
-                                  updateDataSource: (() -> Void),
-                                  completion: (() -> Void)? = nil) {
+                           animation: NSTableView.AnimationOptions,
+                           section: Int = 0,
+                           updateDataSource: (() -> Void),
+                           completion: (() -> Void)? = nil) {
     guard !changes.isEmpty else {
       completion?()
       return
     }
-
+    
     let manager = IndexPathManager()
     let result = manager.process(changes, section: section)
     let insertions = IndexSet(result.insert.compactMap { $0.item })
     let deletions = IndexSet(result.deletions.compactMap { $0.item })
     let updates = IndexSet(result.updates.compactMap { $0.item })
-
-    beginUpdates()
+    
+    animator().beginUpdates()
     updateDataSource()
-    validateUpdates(insertions, animation: animation, then: insertRows)
-    validateUpdates(deletions, animation: animation, then: removeRows)
+    validateUpdates(insertions, animation: animation, then: animator().insertRows)
+    validateUpdates(deletions, animation: animation, then: animator().removeRows)
 
     if !updates.isEmpty {
-      reloadData(forRowIndexes: updates, columnIndexes: IndexSet([section]))
+      animator().reloadData(forRowIndexes: updates, columnIndexes: IndexSet([section]))
     }
 
     if !result.moves.isEmpty {
-      result.moves.forEach { moveRow(at: $0.from.item, to: $0.to.item) }
+      result.moves.forEach { animator().moveRow(at: $0.from.item, to: $0.to.item) }
     }
 
-    endUpdates()
+    animator().endUpdates()
+
+    needsLayout = true
 
     completion?()
   }

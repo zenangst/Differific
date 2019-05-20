@@ -10,9 +10,10 @@ public extension NSCollectionView {
   ///             This is where you should update your data source.
   ///   - completion: A closure that is invoked after the updates are done.
   func reload<T: Hashable>(with changes: [Change<T>],
-                                  section: Int = 0,
-                                  updateDataSource: (() -> Void),
-                                  completion: (() -> Void)? = nil) {
+                           animations: Bool = false,
+                           section: Int = 0,
+                           updateDataSource: (() -> Void),
+                           completion: (() -> Void)? = nil) {
     guard !changes.isEmpty else {
       completion?()
       return
@@ -20,16 +21,19 @@ public extension NSCollectionView {
 
     let manager = IndexPathManager()
     let result = manager.process(changes, section: section)
+    let object = animations ? animator() : self
 
-    performBatchUpdates({
+    object.performBatchUpdates({
       updateDataSource()
-      validateUpdates(result.insert, then: insertItems)
-      validateUpdates(result.updates, then: reloadItems)
-      validateUpdates(result.deletions, then: deleteItems)
+      validateUpdates(result.insert, then: object.insertItems)
+      validateUpdates(result.updates, then: object.reloadItems)
+      validateUpdates(result.deletions, then: object.deleteItems)
       if !result.moves.isEmpty {
-        result.moves.forEach { moveItem(at: $0.from, to: $0.to) }
+        result.moves.forEach { object.moveItem(at: $0.from, to: $0.to) }
       }
     }, completionHandler: nil)
+
+    needsLayout = true
 
     completion?()
   }
