@@ -11,10 +11,10 @@ public extension UITableView {
   ///             This is where you should update your data source.
   ///   - completion: A closure that is invoked after the updates are done.
   func reload<T: Hashable>(with changes: [Change<T>],
-                                  animation: UITableView.RowAnimation = .automatic,
-                                  section: Int = 0,
-                                  updateDataSource: (() -> Void),
-                                  completion: (() -> Void)? = nil) {
+                           animation: UITableView.RowAnimation = .automatic,
+                           section: Int = 0,
+                           updateDataSource: (() -> Void),
+                           completion: (() -> Void)? = nil) {
     guard !changes.isEmpty else {
       completion?()
       return
