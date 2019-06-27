@@ -145,7 +145,8 @@ class Algorithm {
                                 newItem: new[offset]))
         } else {
           let deleteOffset = deleteOffsets[oldIndex]
-          if (oldIndex - deleteOffset + runningOffset) != offset {
+          if (oldIndex - deleteOffset + runningOffset) != offset,
+            oldIndex != offset {
             changes.append(Change(.move,
                                   item: new[offset],
                                   index: oldIndex,
