@@ -130,7 +130,7 @@ class NSCollectionViewExtensionsTests: XCTestCase {
       ranCompletion = true
     }
 
-    XCTAssertTrue(ranBefore)
+    XCTAssertFalse(ranBefore)
     XCTAssertTrue(ranCompletion)
   }
 }

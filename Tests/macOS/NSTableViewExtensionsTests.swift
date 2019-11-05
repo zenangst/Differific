@@ -106,7 +106,7 @@ class NSTableViewExtensionsTests: XCTestCase {
       ranCompletion = true
     }
 
-    XCTAssertTrue(ranBefore)
+    XCTAssertFalse(ranBefore)
     XCTAssertTrue(ranCompletion)
   }
 }
