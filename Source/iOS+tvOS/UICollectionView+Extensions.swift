@@ -13,7 +13,8 @@ extension UICollectionView {
                                   section: Int = 0,
                                   updateDataSource: (() -> Void),
                                   completion: (() -> Void)? = nil) {
-    guard !changes.isEmpty else {
+    guard !changes.isEmpty && (superview != nil) else {
+      updateDataSource()
       completion?()
       return
     }
