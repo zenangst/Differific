@@ -19,6 +19,13 @@ public extension NSTableView {
       completion?()
       return
     }
+
+    if superview == nil {
+      updateDataSource()
+      reloadData()
+      completion?()
+      return
+    }
     
     let manager = IndexPathManager()
     let result = manager.process(changes, section: section)

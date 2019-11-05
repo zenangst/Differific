@@ -20,6 +20,13 @@ public extension UITableView {
       return
     }
 
+    if superview == nil {
+      updateDataSource()
+      reloadData()
+      completion?()
+      return
+    }
+
     setNeedsLayout()
     layoutIfNeeded()
 

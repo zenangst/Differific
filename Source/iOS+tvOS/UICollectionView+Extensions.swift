@@ -18,6 +18,13 @@ extension UICollectionView {
       return
     }
 
+    if superview == nil {
+      updateDataSource()
+      reloadData()
+      completion?()
+      return
+    }
+
     setNeedsLayout()
     layoutIfNeeded()
 

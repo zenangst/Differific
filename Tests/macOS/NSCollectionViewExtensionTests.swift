@@ -50,7 +50,9 @@ class NSCollectionViewExtensionsTests: XCTestCase {
     let dataSource = DataSourceMock(models: ["Foo", "Bar", "Baz"])
     let layout = NSCollectionViewFlowLayout()
     layout.itemSize = CGSize(width: 250, height: 250)
+    let superview = NSView()
     let collectionView = NSCollectionView(frame: .init(origin: .zero, size: layout.itemSize))
+    superview.addSubview(collectionView)
     collectionView.collectionViewLayout = layout
     collectionView.dataSource = dataSource
     collectionView.register(NSCollectionViewItem.self, forItemWithIdentifier: NSUserInterfaceItemIdentifier.init("cell"))
@@ -78,7 +80,9 @@ class NSCollectionViewExtensionsTests: XCTestCase {
     let dataSource = DataSourceMock(models: ["Foo", "Bar", "Baz"])
     let layout = NSCollectionViewFlowLayout()
     layout.itemSize = CGSize(width: 250, height: 250)
+    let superview = NSView()
     let collectionView = NSCollectionView(frame: .init(origin: .zero, size: layout.itemSize))
+    superview.addSubview(collectionView)
     collectionView.collectionViewLayout = layout
     collectionView.dataSource = dataSource
     collectionView.register(NSCollectionViewItem.self, forItemWithIdentifier: NSUserInterfaceItemIdentifier.init("cell"))
