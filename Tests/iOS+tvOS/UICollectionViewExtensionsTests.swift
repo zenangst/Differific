@@ -126,7 +126,7 @@ class UICollectionViewExtensionsTests: XCTestCase {
       ranCompletion = true
     }
 
-    XCTAssertFalse(ranBefore)
+    XCTAssertTrue(ranBefore)
     XCTAssertTrue(ranCompletion)
   }
 }

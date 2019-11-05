@@ -119,7 +119,7 @@ class UITableViewExtensionsTests: XCTestCase {
       ranCompletion = true
     }
 
-    XCTAssertFalse(ranBefore)
+    XCTAssertTrue(ranBefore)
     XCTAssertTrue(ranCompletion)
   }
 }
