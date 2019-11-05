@@ -23,6 +23,7 @@ public extension NSTableView {
     if superview == nil {
       updateDataSource()
       reloadData()
+      completion?()
       return
     }
     

@@ -22,6 +22,7 @@ public extension NSCollectionView {
     if superview == nil {
       updateDataSource()
       reloadData()
+      completion?()
       return
     }
 

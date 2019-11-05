@@ -23,6 +23,7 @@ public extension UITableView {
     if superview == nil {
       updateDataSource()
       reloadData()
+      completion?()
       return
     }
 

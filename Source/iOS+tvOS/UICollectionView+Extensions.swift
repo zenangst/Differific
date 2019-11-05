@@ -21,6 +21,7 @@ extension UICollectionView {
     if superview == nil {
       updateDataSource()
       reloadData()
+      completion?()
       return
     }
 
