@@ -16,7 +16,6 @@ public extension NSTableView {
                            updateDataSource: (() -> Void),
                            completion: (() -> Void)? = nil) {
     guard !changes.isEmpty && !(superview != nil) else {
-      updateDataSource()
       completion?()
       return
     }
