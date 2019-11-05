@@ -15,9 +15,14 @@ public extension NSTableView {
                            section: Int = 0,
                            updateDataSource: (() -> Void),
                            completion: (() -> Void)? = nil) {
-    guard !changes.isEmpty && !(superview != nil) else {
-      updateDataSource()
+    guard !changes.isEmpty else {
       completion?()
+      return
+    }
+
+    if superview == nil {
+      updateDataSource()
+      reloadData()
       return
     }
     
