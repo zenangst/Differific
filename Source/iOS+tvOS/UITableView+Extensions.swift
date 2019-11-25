@@ -42,6 +42,8 @@ public extension UITableView {
         if !result.moves.isEmpty {
           result.moves.forEach { moveRow(at: $0.from, to: $0.to) }
         }
+      }, completion: { _ in
+        completion?()
       })
     } else {
       beginUpdates()
@@ -53,9 +55,8 @@ public extension UITableView {
         result.moves.forEach { moveRow(at: $0.from, to: $0.to) }
       }
       endUpdates()
+      completion?()
     }
-
-    completion?()
   }
 
   private func validateUpdates(_ collection: [IndexPath],
