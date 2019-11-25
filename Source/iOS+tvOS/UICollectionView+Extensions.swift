@@ -41,9 +41,9 @@ extension UICollectionView {
           moveItem(at: $0.from, to: $0.to)
         }
       }
+    }, completion: { _ in
+      completion?()
     })
-
-    completion?()
   }
 
   private func validateUpdates(_ collection: [IndexPath], then: ([IndexPath]) -> Void) {

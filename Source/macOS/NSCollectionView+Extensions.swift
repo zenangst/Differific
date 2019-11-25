@@ -38,11 +38,11 @@ public extension NSCollectionView {
       if !result.moves.isEmpty {
         result.moves.forEach { object.moveItem(at: $0.from, to: $0.to) }
       }
-    }, completionHandler: nil)
+    }, completionHandler: { _ in
+      completion?()
+    })
 
     needsLayout = true
-
-    completion?()
   }
 
   private func validateUpdates(_ collection: [IndexPath], then: (Set<IndexPath>) -> Void) {
